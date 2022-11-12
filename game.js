@@ -41,6 +41,7 @@ class App extends Application {
         this.camera.aspect = this.aspect;
         this.camera.updateProjection();
         this.renderer.prepare(this.scene);
+
     }
 
     enableCamera() {
@@ -74,6 +75,7 @@ class App extends Application {
     }
 
     render() {
+        console.log(this.scene)
         if (this.scene) {
             this.renderer.render(this.scene, this.camera);
         }
@@ -91,10 +93,11 @@ class App extends Application {
 
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+
+document.addEventListener('DOMContentLoaded', async () => {
     const canvas = document.querySelector('canvas');
     const app = new App(canvas);
     const gui = new GUI();
-    gui.add(app, 'enableCamera');
-    app.renderer.createModel();
+    gui.add(app, 'enableCamera'); 
+    await app.init()
 });
