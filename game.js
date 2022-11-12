@@ -1,6 +1,6 @@
-import { GUI } from '../../lib/dat.gui.module.js';
+import { GUI } from './lib/dat.gui.module.js';
 
-import { Application } from '../../common/engine/Application.js';
+import { Application } from './common/engine/Application.js';
 
 import { Renderer } from './Renderer.js';
 import { Physics } from './Physics.js';
@@ -41,6 +41,7 @@ class App extends Application {
         this.camera.aspect = this.aspect;
         this.camera.updateProjection();
         this.renderer.prepare(this.scene);
+
     }
 
     enableCamera() {
@@ -91,9 +92,11 @@ class App extends Application {
 
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+
+document.addEventListener('DOMContentLoaded', async () => {
     const canvas = document.querySelector('canvas');
     const app = new App(canvas);
     const gui = new GUI();
-    gui.add(app, 'enableCamera');
+    gui.add(app, 'enableCamera'); 
+    await app.init()
 });

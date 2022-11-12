@@ -1,4 +1,4 @@
-import { vec3, mat4 } from '../../lib/gl-matrix-module.js';
+import { vec3, mat4 } from './lib/gl-matrix-module.js';
 
 export class Physics {
 
@@ -19,6 +19,8 @@ export class Physics {
             }
         });
     }
+
+    // TODO - swing physics
 
     intervalIntersection(min1, max1, min2, max2) {
         return !(min1 > max2 || min2 > max1);
