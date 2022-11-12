@@ -1,6 +1,6 @@
-import { GUI } from '../../lib/dat.gui.module.js';
+import { GUI } from './lib/dat.gui.module.js';
 
-import { Application } from '../../common/engine/Application.js';
+import { Application } from './common/engine/Application.js';
 
 import { Renderer } from './Renderer.js';
 import { Physics } from './Physics.js';
@@ -96,4 +96,5 @@ document.addEventListener('DOMContentLoaded', () => {
     const app = new App(canvas);
     const gui = new GUI();
     gui.add(app, 'enableCamera');
+    app.renderer.createModel();
 });
