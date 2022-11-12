@@ -24,11 +24,14 @@ export class Camera extends Node {
 
     update(dt) {
         const c = this;
+        c.maxSpeed = Math.max(c.maxSpeed, 10)
 
         const forward = vec3.set(vec3.create(),
             -Math.sin(c.rotation[1]), 0, -Math.cos(c.rotation[1]));
         const right = vec3.set(vec3.create(),
             Math.cos(c.rotation[1]), 0, -Math.sin(c.rotation[1]));
+        const up = vec3.set(vec3.create(), 0, 2, 1);
+        console.log(Math.sin(c.rotation[1]))
 
         // 1: add movement acceleration
         let acc = vec3.create();
@@ -44,6 +47,16 @@ export class Camera extends Node {
         if (this.keys['KeyA']) {
             vec3.sub(acc, acc, right);
         }
+        if (this.keys['Space']) {
+            console.log("space", up)
+            vec3.add(acc, acc, up)
+        }
+        if (!this.keys['Space'] && c.translation[1] > 1) {
+            vec3.sub(acc, acc, up)
+        }
+        c.translation[1] = Math.max(c.translation[1], 1);
+
+        console.log(c.translation)
 
         // 2: update velocity
         vec3.scaleAndAdd(c.velocity, c.velocity, acc, dt * c.acceleration);
@@ -52,7 +65,8 @@ export class Camera extends Node {
         if (!this.keys['KeyW'] &&
             !this.keys['KeyS'] &&
             !this.keys['KeyD'] &&
-            !this.keys['KeyA'])
+            !this.keys['KeyA'] &&
+            !this.keys['Space'])
         {
             vec3.scale(c.velocity, c.velocity, 1 - c.friction);
         }
@@ -82,7 +96,7 @@ export class Camera extends Node {
 
     mousemoveHandler(e) {
         const dx = e.movementX;
-        const dy = e.movementY;
+        const dy = e.movementY;        
         const c = this;
 
         c.rotation[0] -= dy * c.mouseSensitivity;
@@ -103,6 +117,7 @@ export class Camera extends Node {
     }
 
     keydownHandler(e) {
+        console.log(e)
         this.keys[e.code] = true;
     }
 

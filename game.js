@@ -75,7 +75,6 @@ class App extends Application {
     }
 
     render() {
-        console.log(this.scene)
         if (this.scene) {
             this.renderer.render(this.scene, this.camera);
         }
