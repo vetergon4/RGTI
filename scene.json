@@ -24,7 +24,18 @@
       "rotation": [0, 1.5, 0],
       "scale": [5, 0.1, 1.1]
     },
-    
+    {
+      "type": "model",
+      "mesh": 5,
+      "texture": 5,
+      "aabb": {
+        "min": [-1, -0.1, -1],
+        "max": [1, 0.1, 1]
+      },
+      "translation": [10,11,-10],
+      "rotation": [0, 1.5, 0],
+      "scale": [50, 50, 50]
+    },   
     {
       "type": "model",
       "mesh": 0,
@@ -88,7 +99,7 @@
     "./common/models/pyramid.json",
     "./common/models/floor.json",
     "./common/models/grass.json",
-    "./common/models/funky.json"
-
+    "./common/models/funky.json",
+    "./common/models/pole.json"
   ]
 }
