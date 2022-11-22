@@ -72,6 +72,14 @@
       "translation": [0,11,-10],
       "rotation": [0, 1.5, 0],
       "scale": [0.5, 0.5, 6]
+    },
+    {
+      "type": "model",    
+      "mesh": 5,
+      "texture": 6,
+      "translation": [3,3,3],
+      "rotation": [90, 0, 0],
+      "scale": [1, 1, 1]
     }      
   ],
   "textures": [
@@ -80,7 +88,8 @@
     "./common/images/grayscale.png",
     "./common/images/obama.jpg",
     "./common/images/tile.jpg",
-    "./common/images/platform.jpg"
+    "./common/images/platform.jpg",
+    "./common/images/coinTexture.png"
 
   ],
   "meshes": [
@@ -88,7 +97,9 @@
     "./common/models/pyramid.json",
     "./common/models/floor.json",
     "./common/models/grass.json",
-    "./common/models/funky.json"
-
+    "./common/models/funky.json",
+    "./common/models/coin.json",
+    "./common/models/cylinder.json",
+    "./common/models/weirdCoin.json"
   ]
 }

@@ -2,6 +2,7 @@
   "dependencies": {
     "connect": "^3.7.0",
     "http-server": "^14.1.1",
+    "obj-file-parser": "^0.5.3",
     "static-serve": "^0.0.1"
   }
 }
