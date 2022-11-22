@@ -12,6 +12,7 @@ export class Node {
 
         this.children = [];
         this.parent = null;
+        this.mesh = null;
     }
 
     updateTransform() {

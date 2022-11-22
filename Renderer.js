@@ -159,11 +159,9 @@ export class Renderer {
     }
 
     prepareMesh(mesh) {
-        if(mesh.primitives !== undefined){
         for (const primitive of mesh.primitives) {
             this.preparePrimitive(primitive);
         }
-    }
     }
 
     prepareNode(node) {
