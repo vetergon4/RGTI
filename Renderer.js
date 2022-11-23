@@ -39,7 +39,7 @@ export class Renderer {
 
         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
-        const program = this.programs.simple;
+        let program = this.programs.simple;
         gl.useProgram(program.program);
 
         let matrix = mat4.create();
@@ -49,9 +49,11 @@ export class Renderer {
         mat4.invert(viewMatrix, viewMatrix);
         mat4.copy(matrix, viewMatrix);
         gl.uniformMatrix4fv(program.uniforms.uProjection, false, camera.projection);
-
+        
         scene.traverse(
             node => {
+                program = this.programs.simple;
+                gl.useProgram(program.program);
                 matrixStack.push(mat4.clone(matrix));
                 mat4.mul(matrix, matrix, node.transform);
                 if (node.gl.vao) {
@@ -59,9 +61,11 @@ export class Renderer {
                     gl.uniformMatrix4fv(program.uniforms.uViewModel, false, matrix);
                     gl.activeTexture(gl.TEXTURE0);
                     gl.bindTexture(gl.TEXTURE_2D, node.gl.texture);
-                    gl.uniform1i(program.uniforms.uTexture, 0);
+                    gl.uniform4f(program.uniforms.uOffset, 4, 0, 0, 0);
+                
                     gl.drawElements(gl.TRIANGLES, node.gl.indices, gl.UNSIGNED_SHORT, 0);
                 }
+                
             },
             node => {
                 matrix = matrixStack.pop();
