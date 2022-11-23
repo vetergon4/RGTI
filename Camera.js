@@ -3,6 +3,7 @@ import { vec3, mat4 } from './lib/gl-matrix-module.js';
 import { Utils } from './Utils.js';
 import { Node } from './Node.js';
 
+
 export class Camera extends Node {
 
     constructor(options) {
@@ -11,52 +12,84 @@ export class Camera extends Node {
 
         this.projection = mat4.create();
         this.updateProjection();
+        this.binded = false; // boolean ce drzimo vrv
 
         this.mousemoveHandler = this.mousemoveHandler.bind(this);
         this.keydownHandler = this.keydownHandler.bind(this);
         this.keyupHandler = this.keyupHandler.bind(this);
         this.keys = {};
+
     }
 
     updateProjection() {
         mat4.perspective(this.projection, this.fov, this.aspect, this.near, this.far);
     }
 
-    update(dt) {
+    update(dt, binded) {
         const c = this;
         c.maxSpeed = Math.max(c.maxSpeed, 10)
-
+        if(c.translation[1] <= -1){
+            c.onGround = true;
+        } 
         const forward = vec3.set(vec3.create(),
             -Math.sin(c.rotation[1]), 0, -Math.cos(c.rotation[1]));
         const right = vec3.set(vec3.create(),
             Math.cos(c.rotation[1]), 0, -Math.sin(c.rotation[1]));
-        const up = vec3.set(vec3.create(), 0, 2, 1);
-        console.log(Math.sin(c.rotation[1]))
+        const up = vec3.set(vec3.create(), 0, 2, 0);
+        const gravity = vec3.set(vec3.create(), 0, 0.2, 0);
 
         // 1: add movement acceleration
         let acc = vec3.create();
         if (this.keys['KeyW']) {
             vec3.add(acc, acc, forward);
+            if(binded){
+                vec3.add(acc, acc, forward);
+                vec3.add(acc, acc, forward);
+                vec3.add(acc, acc, forward);
+            }
         }
         if (this.keys['KeyS']) {
             vec3.sub(acc, acc, forward);
+            if(binded){
+                vec3.sub(acc, acc, forward);
+                vec3.sub(acc, acc, forward);
+                vec3.sub(acc, acc, forward);
+            }
         }
         if (this.keys['KeyD']) {
             vec3.add(acc, acc, right);
+            if(binded){
+                vec3.add(acc, acc, right);
+                vec3.add(acc, acc, right);
+                vec3.add(acc, acc, right);
+            }
         }
         if (this.keys['KeyA']) {
             vec3.sub(acc, acc, right);
+            if(binded){
+                vec3.sub(acc, acc, right);
+                vec3.sub(acc, acc, right);
+                vec3.sub(acc, acc, right);
+            }
         }
-        if (this.keys['Space']) {
-            console.log("space", up)
-            vec3.add(acc, acc, up)
+        if (this.keys['Space'] && c.onGround) {
+            c.velocity[1] = 20;
+            c.onGround = false;
         }
-        if (!this.keys['Space'] && c.translation[1] > 1) {
-            vec3.sub(acc, acc, up)
+        if (c.translation[1] > 0.90 && !binded) {
+            vec3.sub(acc, acc, up);
         }
-        c.translation[1] = Math.max(c.translation[1], 1);
+        if(this.keys['KeyQ']){
+            
+            this.binded = true; // prijema vrv
+        }
+        if(!this.keys['KeyQ']){
+            
+            this.binded = false;
+        }
+        //c.translation[1] = Math.max(c.translation[1], 0);
 
-        console.log(c.translation)
+        
 
         // 2: update velocity
         vec3.scaleAndAdd(c.velocity, c.velocity, acc, dt * c.acceleration);
@@ -65,23 +98,32 @@ export class Camera extends Node {
         if (!this.keys['KeyW'] &&
             !this.keys['KeyS'] &&
             !this.keys['KeyD'] &&
-            !this.keys['KeyA'] &&
-            !this.keys['Space'])
+            !this.keys['KeyA'])
         {
-            vec3.scale(c.velocity, c.velocity, 1 - c.friction);
+            c.velocity[0] = c.velocity[0] * (1-c.friction)
+            c.velocity[2] = c.velocity[2] * (1-c.friction)
         }
 
         // 4: limit speed
-        const len = vec3.len(c.velocity);
+        /*const len = vec3.len(c.velocity);
         if (len > c.maxSpeed) {
             vec3.scale(c.velocity, c.velocity, c.maxSpeed / len);
         }
+        */
+        const len = Math.hypot(c.velocity[0], c.velocity[2])
+        if (len > c.maxSpeed && !binded) {
+            c.velocity[0] *= c.maxSpeed / len
+            c.velocity[2] *= c.maxSpeed / len
+        }
+        //console.log("x:", c.translation[0], "y:", c.translation[1], "z:", c.translation[2]);
     }
+
 
     enable() {
         document.addEventListener('mousemove', this.mousemoveHandler);
         document.addEventListener('keydown', this.keydownHandler);
         document.addEventListener('keyup', this.keyupHandler);
+
     }
 
     disable() {
@@ -117,7 +159,6 @@ export class Camera extends Node {
     }
 
     keydownHandler(e) {
-        console.log(e)
         this.keys[e.code] = true;
     }
 
@@ -134,7 +175,9 @@ Camera.defaults = {
     far              : 100,
     velocity         : [0, 0, 0],
     mouseSensitivity : 0.002,
-    maxSpeed         : 3,
+    maxSpeed         : 1.5,
     friction         : 0.2,
-    acceleration     : 20
+    acceleration     : 20,
+    onGround         : true,
+    swingSpeed       : 10
 };

@@ -1,21 +1,41 @@
 import { vec3, mat4 } from './lib/gl-matrix-module.js';
-
+import { Camera } from './Camera.js';
+import  Functions  from './Functions.js';
 export class Physics {
 
     constructor(scene) {
         this.scene = scene;
+        this.funct = new Functions(this.scene);
+        this.disableGravity = false;
+        this.allowBind = false; // dovoli izklucitev gravitacije
     }
 
-    update(dt) {
+    update(dt, binded, camera) {
         this.scene.traverse(node => {
             if (node.velocity) {
                 vec3.scaleAndAdd(node.translation, node.translation, node.velocity, dt);
                 node.updateTransform();
                 this.scene.traverse(other => {
                     if (node !== other) {
-                        this.resolveCollision(node, other);
+                        if(this.resolveCollision(node, other)){
+                            camera.onGround = true;
+                        }
                     }
                 });
+            }
+            // preveri ce smo v blizini vrvi
+            if(node.id == "rope"){ 
+                if(binded){
+                    if(this.funct.calculateDistance(node, camera) < 3){
+                        this.allowBind = true;
+                    }
+                    else{
+                        this.allowBind = false;
+                    }
+                }
+                else{
+                    this.allowBind = false;
+                }
             }
         });
     }
@@ -55,7 +75,7 @@ export class Physics {
         });
 
         if (!isColliding) {
-            return;
+            return false;
         }
 
         // Move node A minimally to avoid collision.
@@ -91,6 +111,43 @@ export class Physics {
 
         vec3.add(a.translation, a.translation, minDirection);
         a.updateTransform();
+        return true;
     }
+
+    createR(){
+        console.log("Fizika deluje");
+
+        // najdi kamero
+        var cam = null;
+        if(this.scene){
+            this.scene.traverse(node => {
+                if(node instanceof Camera){
+                    cam = node;
+                }
+            });
+        }
+        // najdi vrv
+        let vrv = null;
+        if(cam){
+            this.scene.traverse(node => {
+                if(node.id == "rope"){
+                    vrv = node;
+                }
+            });
+        }
+
+        vrv.rotation = cam.rotation.slice();
+        let translation = cam.translation.slice();
+        vrv.translation[0] = translation[0]+0.5;
+        vrv.translation[1] = translation[1]+0.5;
+        vrv.translation[2] = translation[2]+0.5;
+        vrv.scale = [0.2,0.2,0.2];
+        vrv.updateTransform();
+    }
+
+    attachToRope(){
+        console.log("Attach");
+    }
+    
 
 }
