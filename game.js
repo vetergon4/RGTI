@@ -7,21 +7,23 @@ import { Physics } from './Physics.js';
 import { Camera } from './Camera.js';
 import { SceneLoader } from './SceneLoader.js';
 import { SceneBuilder } from './SceneBuilder.js';
+import Functions from './Functions.js';
 
 class App extends Application {
 
     start() {
         const gl = this.gl;
-
         this.renderer = new Renderer(gl);
         this.time = Date.now();
         this.startTime = this.time;
         this.aspect = 1;
-
+        this.binded = false;
         this.pointerlockchangeHandler = this.pointerlockchangeHandler.bind(this);
         document.addEventListener('pointerlockchange', this.pointerlockchangeHandler);
 
         this.load('scene.json');
+
+
     }
 
     async load(uri) {
@@ -64,14 +66,17 @@ class App extends Application {
         const t = this.time = Date.now();
         const dt = (this.time - this.startTime) * 0.001;
         this.startTime = this.time;
-
+        
         if (this.camera) {
-            this.camera.update(dt);
+            this.camera.update(dt, this.binded);
         }
-
+        
         if (this.physics) {
-            this.physics.update(dt);
+            this.binded = this.camera.binded;
+            this.physics.update(dt, this.binded, this.camera);
+            this.binded = this.physics.allowBind;
         }
+        
     }
 
     render() {

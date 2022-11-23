@@ -12,18 +12,7 @@
       "near": 0.01,
       "far": 100
     },
-    {
-      "type": "model",
-      "mesh": 4,
-      "texture": 4,
-      "aabb": {
-        "min": [-1, -0.1, -1],
-        "max": [1, 0.1, 1]
-      },
-      "translation": [1,-0.1,0],
-      "rotation": [0, 1.5, 0],
-      "scale": [5, 0.1, 1.1]
-    },
+    
     
     {
       "type": "model",
@@ -72,7 +61,62 @@
       "translation": [0,11,-10],
       "rotation": [0, 1.5, 0],
       "scale": [0.5, 0.5, 6]
-    }      
+    },
+    {
+      "type": "model",
+      "mesh": 0,
+      "texture": 5,
+      "aabb": {
+        "min": [-1, -0.1, -1],
+        "max": [1, 0.1, 1]
+      },
+      "translation": [0,11, 0],
+      "rotation": [0, 0, 0],
+      "scale": [1, 1, 11]
+    },
+    {
+      "type": "model",
+      "mesh": 0,
+      "id": "rope",
+      "texture": 6,
+      "aabb": {
+        "min": [-1, -0.1, -1],
+        "max": [1, 0.1, 1]
+      },
+      "translation": [0,7, 7],
+      "rotation": [0, 0, 0],
+      "scale": [0.1, 3, 0.1]
+    },
+    {
+      "type": "model",
+      "mesh": 2,
+      "id": "floor",
+      "texture": 4,
+      "aabb": {
+        "min": [-10, 0, -5],
+        "max": [10, 1, 5]
+      },
+      "translation": [0,-0.9, -7.5],
+      "rotation": [0, 0, 0],
+      "scale": [10, 0, 5]
+    },
+    {
+      "type": "model",
+      "mesh": 2,
+      "id": "floor",
+      "texture": 3,
+      "aabb": {
+        "min": [-7.5, 0, -7.5],
+        "max": [7.5, 1, 7.5]
+      },
+      "translation": [0,-0.9, 20],
+      "rotation": [0, 0, 0],
+      "scale": [7.5, 0, 7.5]
+    }
+
+
+    
+
   ],
   "textures": [
     "./common/images/crate-diffuse.png",
@@ -80,7 +124,8 @@
     "./common/images/grayscale.png",
     "./common/images/obama.jpg",
     "./common/images/tile.jpg",
-    "./common/images/platform.jpg"
+    "./common/images/platform.jpg",
+    "./common/images/rope.jpg"
 
   ],
   "meshes": [

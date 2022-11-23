@@ -28,7 +28,7 @@ export class Renderer {
             if (node.mesh) {
                 Object.assign(node.gl, this.createModel(node.mesh));
             }
-            if (node.image) {
+            if (node.image) {   
                 node.gl.texture = this.createTexture(node.image);
             }
         });
