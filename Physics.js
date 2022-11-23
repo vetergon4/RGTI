@@ -33,6 +33,7 @@ export class Physics {
     }
 
     resolveCollision(a, b) {
+        
         // Update bounding boxes with global translation.
         const ta = a.getGlobalTransform();
         const tb = b.getGlobalTransform();
@@ -53,6 +54,10 @@ export class Physics {
             min: minb,
             max: maxb
         });
+        if (isColliding) {
+
+            console.log(b.image.outerHTML);
+        }
 
         if (!isColliding) {
             return;
@@ -90,7 +95,21 @@ export class Physics {
         }
 
         vec3.add(a.translation, a.translation, minDirection);
-        a.updateTransform();
+
+        //Preveri ce trcis v kovanec
+        if(b.image.outerHTML == '<img src="./common/images/coinTexture.png">'){
+
+
+            vec3.add(b.translation, b.translation, [200, 200, 200]); // Poslji kovanec v PM - izgine (si ga kao pobral)
+            console.log("Zadeli smo kovanec.");
+            const zvok = document.getElementById("myAudio");
+            zvok.pause();
+            zvok.play();
+
+        }
+       // a.updateTransform();
+        b.updateTransform();
+        return true;
     }
 
 }

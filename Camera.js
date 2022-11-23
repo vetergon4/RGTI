@@ -31,7 +31,8 @@ export class Camera extends Node {
         const right = vec3.set(vec3.create(),
             Math.cos(c.rotation[1]), 0, -Math.sin(c.rotation[1]));
         const up = vec3.set(vec3.create(), 0, 2, 1);
-        console.log(Math.sin(c.rotation[1]))
+       
+       // console.log(Math.sin(c.rotation[1]))
 
         // 1: add movement acceleration
         let acc = vec3.create();
@@ -48,7 +49,7 @@ export class Camera extends Node {
             vec3.sub(acc, acc, right);
         }
         if (this.keys['Space']) {
-            console.log("space", up)
+            //console.log("space", up)
             vec3.add(acc, acc, up)
         }
         if (!this.keys['Space'] && c.translation[1] > 1) {
@@ -56,7 +57,7 @@ export class Camera extends Node {
         }
         c.translation[1] = Math.max(c.translation[1], 1);
 
-        console.log(c.translation)
+        //console.log(c.translation)
 
         // 2: update velocity
         vec3.scaleAndAdd(c.velocity, c.velocity, acc, dt * c.acceleration);
@@ -117,7 +118,7 @@ export class Camera extends Node {
     }
 
     keydownHandler(e) {
-        console.log(e)
+        //console.log(e)
         this.keys[e.code] = true;
     }
 
