@@ -1,6 +1,7 @@
 import { mat4 } from './lib/gl-matrix-module.js';
 
 import { WebGL } from './common/engine/WebGL.js';
+import { SceneLoader } from './SceneLoader.js';
 
 import { shaders } from './shaders.js';
 
@@ -8,6 +9,7 @@ export class Renderer {
 
     constructor(gl) {
         this.gl = gl;
+        this.count = 0;
 
         gl.clearColor(1, 1, 1, 1);
         gl.enable(gl.DEPTH_TEST);
@@ -23,6 +25,7 @@ export class Renderer {
     }
 
     prepare(scene) {
+
         scene.nodes.forEach(node => {
             node.gl = {};
             if (node.mesh) {
@@ -41,6 +44,10 @@ export class Renderer {
 
         const program = this.programs.simple;
         gl.useProgram(program.program);
+        gl.enable(gl.DEPTH_TEST);
+        gl.enable(gl.CULL_FACE);
+
+
 
         let matrix = mat4.create();
         let matrixStack = [];
@@ -50,8 +57,18 @@ export class Renderer {
         mat4.copy(matrix, viewMatrix);
         gl.uniformMatrix4fv(program.uniforms.uProjection, false, camera.projection);
 
+        this.count++
         scene.traverse(
             node => {
+                if (node.id == "boat") {
+                    node.transform[14] -= .1;
+                } //else if (node.id == "water") {
+                  //  if (this.count % 5 == 0) {
+                  //      node.transform[15] += .1
+                  //  } else {
+                  //      node.transform[15] -= .1
+                  //  }
+                //}
                 matrixStack.push(mat4.clone(matrix));
                 mat4.mul(matrix, matrix, node.transform);
                 if (node.gl.vao) {
@@ -66,7 +83,8 @@ export class Renderer {
             node => {
                 matrix = matrixStack.pop();
             }
-        );
+        );    
+
     }
 
     createModel(model) {
