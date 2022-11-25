@@ -7,43 +7,23 @@ import { Physics } from './Physics.js';
 import { Camera } from './Camera.js';
 import { SceneLoader } from './SceneLoader.js';
 import { SceneBuilder } from './SceneBuilder.js';
-import { Node } from './Node.js';
-import { Model } from './Model.js';
-import { WebGL } from './common/engine/WebGL.js';
-import { shaders } from './shaders.js';
-
+import Functions from './Functions.js';
 
 class App extends Application {
 
     start() {
         const gl = this.gl;
-
         this.renderer = new Renderer(gl);
         this.time = Date.now();
         this.startTime = this.time;
         this.aspect = 1;
-
-
-        this.program = WebGL.buildPrograms(gl, shaders);
-
-        this.root = new Node();
-       
-        this.offsetX = 0;
-        this.offsetY = 0;
-        this.offsetZ = 0;
-        this.prekoracil = false;
-
-        this.modelMatrix = mat4.create();
-        this.viewMatrix = mat4.create();
-        this.projectionMatrix = mat4.create();
-        this.mvpMatrix = mat4.create();
-
-        this.models = [];
-
+        this.binded = false;
         this.pointerlockchangeHandler = this.pointerlockchangeHandler.bind(this);
         document.addEventListener('pointerlockchange', this.pointerlockchangeHandler);
 
         this.load('scene.json');
+
+
     }
 
     async load(uri) {
@@ -96,26 +76,17 @@ class App extends Application {
         const t = this.time = Date.now();
         const dt = (this.time - this.startTime) * 0.001;
         this.startTime = this.time;
-
-
-
-        for (let i = 0; i < this.models.length; i++) {
-            
-            let t = this.models[i].transform;
-            mat4.rotateX(t, t, 0.005);
-            mat4.rotateY(t, t, 0.007);   
-            /* let translation = vec3.create();
-            vec3.set(translation, this.offsetX, 0, 0);
-            mat4.translate(t, t, translation); */  
-        }
-
+        
         if (this.camera) {
-            this.camera.update(dt);
+            this.camera.update(dt, this.binded);
         }
-
+        
         if (this.physics) {
-            this.physics.update(dt);
+            this.binded = this.camera.binded;
+            this.physics.update(dt, this.binded, this.camera);
+            this.binded = this.physics.allowBind;
         }
+        
     }
 
     render() {
@@ -144,3 +115,95 @@ document.addEventListener('DOMContentLoaded', async () => {
     gui.add(app, 'enableCamera'); 
     await app.init()
 });
+
+
+function generateLevel() {
+    console.log()
+}
+
+function generatePole(translation_bottom, translation_top, id) {
+    let pole_bottom =  {
+        "type": "model",
+        "mesh": 0,
+        "id":`pole_bottom${id}`,
+        "texture": 5,
+        "aabb": {
+          "min": [-1, -0.1, -1],
+          "max": [1, 0.1, 1]
+        },
+        "translation": translation_bottom,
+        "rotation": [1.5, 1.5, 0],
+        "scale": [0.5, 0.5, 7]
+      };
+
+let pole_top = {
+        "type": "model",
+        "mesh": 0,
+        "id": `pole_top${id}`,
+        "texture": 5,
+        "aabb": {
+          "min": [-1, -0.1, -1],
+          "max": [1, 0.1, 1]
+        },
+        "translation": translation_top,
+        "rotation": [0, 1.5, 0],
+        "scale": [0.5, 0.5, 6]
+      };
+
+    return [pole_bottom, pole_top]   
+}
+
+function generatePlatform(translation, id) {
+    const p = {
+        "type": "model",
+        "mesh": 2,
+        "id": "floor",
+        "texture": 4,
+        "aabb": {
+          "min": [-10, -0, -5],
+          "max": [10, 0, 5]
+        },
+        "translation": translation,
+        "rotation": [0, 0, 0],
+        "scale": [10, 0, 5]
+      }
+      return p;
+    }
+
+function generateRope(translation, id) {
+    const rope = {
+        "type": "model",
+        "mesh": 0,
+        "id": `rope${id}`,
+        "texture": 6,
+        "aabb": {
+          "min": [
+            -1,
+            -0.1,
+            -1
+          ],
+          "max": [
+            1,
+            0.1,
+            1
+          ]
+        },
+        "translation": translation,
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.1,
+          3,
+          0.1
+        ]
+      }
+    return rope
+}
+
+console.log(generatePlatform([0, 0, -32]),3)
+console.log(generatePole([0, 5, -32],[3,11,-32], 3))
+console.log(generateRope([-3, 17, -20],2))
+console.log(generateRope([3, 17, -20],2))

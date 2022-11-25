@@ -1,6 +1,7 @@
 import { mat4 } from './lib/gl-matrix-module.js';
 
 import { WebGL } from './common/engine/WebGL.js';
+import { SceneLoader } from './SceneLoader.js';
 
 import { shaders } from './shaders.js';
 
@@ -8,6 +9,9 @@ export class Renderer {
 
     constructor(gl) {
         this.gl = gl;
+        this.count = 0;
+        this.boxDir = "left"
+        this.Y_MIN = -8
 
         gl.clearColor(1, 1, 1, 1);
         gl.enable(gl.DEPTH_TEST);
@@ -23,12 +27,13 @@ export class Renderer {
     }
 
     prepare(scene) {
+
         scene.nodes.forEach(node => {
             node.gl = {};
             if (node.mesh) {
                 Object.assign(node.gl, this.createModel(node.mesh));
             }
-            if (node.image) {
+            if (node.image) {   
                 node.gl.texture = this.createTexture(node.image);
             }
         });
@@ -41,6 +46,15 @@ export class Renderer {
 
         let program = this.programs.simple;
         gl.useProgram(program.program);
+        gl.enable(gl.DEPTH_TEST);
+        gl.enable(gl.CULL_FACE);
+
+        camera.traverse((node) => {
+            if (node.transform[13] <= this.Y_MIN) {
+                this.gameOver = true;
+                node.transform[13] = this.Y_MIN
+            }
+        })
 
         let matrix = mat4.create();
         let matrixStack = [];
@@ -49,11 +63,36 @@ export class Renderer {
         mat4.invert(viewMatrix, viewMatrix);
         mat4.copy(matrix, viewMatrix);
         gl.uniformMatrix4fv(program.uniforms.uProjection, false, camera.projection);
-        
+
+        this.count++
+
+        // node.transform[9:11] rotation
+        // node.transform[12:14] translation
         scene.traverse(
             node => {
-                program = this.programs.simple;
-                gl.useProgram(program.program);
+                if (node.id == "boat") {
+                    node.transform[14] -= .1;
+                } else if (node.id == "obstacle") {
+                    //console.log(node.transform[12], this.boxDir)
+
+                    if (this.boxDir == "left") {
+                        node.transform[12] -= .1
+                        if (node.transform[12] <= -4) {
+                            this.boxDir = "right"
+                        }
+                    }
+                    if (this.boxDir == "right") {
+                        node.transform[12] += .1
+                        if (node.transform[12] >= 4) {
+                            this.boxDir = "left"
+                        }
+                    }
+                } //else if (node.id == "pole_top2") {
+                  //  // One turn per 2 seconds
+                  //  console.log(node)
+                  //  node.transform[10] += Math.PI / 2
+                //}
+                
                 matrixStack.push(mat4.clone(matrix));
                 mat4.mul(matrix, matrix, node.transform);
                 if (node.gl.vao) {
@@ -70,7 +109,8 @@ export class Renderer {
             node => {
                 matrix = matrixStack.pop();
             }
-        );
+        );    
+
     }
 
     createModel(model) {
