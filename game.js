@@ -39,15 +39,7 @@ class App extends Application {
             if (node instanceof Camera) {
                 this.camera = node;
             }
-            if (node instanceof Model) {
-                node.program = WebGL.buildPrograms(gl, shaders);
-                console.log(node.image);
-                if(node.mesh == "./common/models/coin.json"){
-                    console.log("Spawn kovanec");
-                    this.models.push(node);
-                }
-                
-            }
+
         });
 
         this.camera.aspect = this.aspect;
@@ -86,6 +78,8 @@ class App extends Application {
             this.physics.update(dt, this.binded, this.camera);
             this.binded = this.physics.allowBind;
         }
+
+        
         
     }
 

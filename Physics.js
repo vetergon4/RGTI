@@ -75,8 +75,23 @@ export class Physics {
             max: maxb
         });
         if (isColliding) {
+            //console.log(b.image.outerHTML);
+            
+            //Ce zadanemo kovanec
+            if(b.id == "coin"){
 
-            console.log(b.image.outerHTML);
+                let tocke = document.getElementById("stTock");
+                let trenutne = parseFloat(tocke.innerHTML);
+                trenutne += 1;
+                tocke.innerHTML = parseInt(trenutne.toFixed(2));
+    
+                //Zvok ob pobiranju in kovanec izgine iz mape
+                const zvok = document.getElementById("myAudio");
+                zvok.pause();
+                zvok.play();
+                vec3.add(b.translation, b.translation, [200, 200, 200]);
+                b.updateTransform();
+            }
         }
 
         if (!isColliding) {
