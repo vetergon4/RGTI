@@ -11,6 +11,9 @@ export class Physics {
     }
 
     update(dt, binded, camera) {
+        let allowBind = this.false
+        let minDist = 10000;
+
         this.scene.traverse(node => {
             if (node.velocity) {
                 vec3.scaleAndAdd(node.translation, node.translation, node.velocity, dt);
@@ -24,20 +27,27 @@ export class Physics {
                 });
             }
             // preveri ce smo v blizini vrvi
-            if(node.id == "rope"){ 
-                if(binded){
-                    if(this.funct.calculateDistance(node, camera) < 3){
-                        this.allowBind = true;
+            if(node.id == "rope") { 
+                if(binded) {
+                    const dist = this.funct.calculateDistance(node, camera);
+                    if (dist < minDist) {
+                        minDist = dist
+                    } //- node.scale[3]*2 )
+                    if(dist < 5){
+                        allowBind = true;
                     }
-                    else{
-                        this.allowBind = false;
-                    }
+                    //else {
+                    //    this.allowBind = false;
+                    //}
                 }
-                else{
-                    this.allowBind = false;
-                }
+                //else{
+                //    this.allowBind = false;
+                //}
             }
         });
+        //console.log(minDist, allowBind)
+        if (allowBind) this.allowBind = true;
+        else this.allowBind = false
     }
 
     // TODO - swing physics
@@ -113,41 +123,4 @@ export class Physics {
         a.updateTransform();
         return true;
     }
-
-    createR(){
-        console.log("Fizika deluje");
-
-        // najdi kamero
-        var cam = null;
-        if(this.scene){
-            this.scene.traverse(node => {
-                if(node instanceof Camera){
-                    cam = node;
-                }
-            });
-        }
-        // najdi vrv
-        let vrv = null;
-        if(cam){
-            this.scene.traverse(node => {
-                if(node.id == "rope"){
-                    vrv = node;
-                }
-            });
-        }
-
-        vrv.rotation = cam.rotation.slice();
-        let translation = cam.translation.slice();
-        vrv.translation[0] = translation[0]+0.5;
-        vrv.translation[1] = translation[1]+0.5;
-        vrv.translation[2] = translation[2]+0.5;
-        vrv.scale = [0.2,0.2,0.2];
-        vrv.updateTransform();
-    }
-
-    attachToRope(){
-        console.log("Attach");
-    }
-    
-
 }
