@@ -10,6 +10,8 @@ export class Renderer {
     constructor(gl) {
         this.gl = gl;
         this.count = 0;
+        this.boxDir = "left"
+        this.Y_MIN = -8
 
         gl.clearColor(1, 1, 1, 1);
         gl.enable(gl.DEPTH_TEST);
@@ -47,7 +49,12 @@ export class Renderer {
         gl.enable(gl.DEPTH_TEST);
         gl.enable(gl.CULL_FACE);
 
-
+        camera.traverse((node) => {
+            if (node.transform[13] <= this.Y_MIN) {
+                this.gameOver = true;
+                node.transform[13] = this.Y_MIN
+            }
+        })
 
         let matrix = mat4.create();
         let matrixStack = [];
@@ -69,6 +76,23 @@ export class Renderer {
                   //      node.transform[15] -= .1
                   //  }
                 //}
+                else if (node.id == "obstacle") {
+                    //console.log(node.transform[12], this.boxDir)
+
+                    if (this.boxDir == "left") {
+                        node.transform[12] -= .1
+                        if (node.transform[12] <= -4) {
+                            this.boxDir = "right"
+                        }
+                    }
+                    if (this.boxDir == "right") {
+                        node.transform[12] += .1
+                        if (node.transform[12] >= 4) {
+                            this.boxDir = "left"
+                        }
+                    }
+                }
+                
                 matrixStack.push(mat4.clone(matrix));
                 mat4.mul(matrix, matrix, node.transform);
                 if (node.gl.vao) {

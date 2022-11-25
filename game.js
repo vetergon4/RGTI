@@ -150,8 +150,8 @@ function generatePlatform(translation, id) {
         "id": "floor",
         "texture": 4,
         "aabb": {
-          "min": [-7.5, 0, -7.5],
-          "max": [7.5, 1, 7.5]
+          "min": [-10, -0, -5],
+          "max": [10, 0, 5]
         },
         "translation": translation,
         "rotation": [0, 0, 0],
