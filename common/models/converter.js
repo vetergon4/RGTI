@@ -31,9 +31,9 @@ fs.readFile(`${path}.obj`, 'utf-8', (err, data) => {
     }
     const normals = parsed['models'][0]['vertexNormals'];
     for (const normal of normals) {
-        output['normals'].push(normal['x']);
-        output['normals'].push(normal['y']);
-        output['normals'].push(normal['z']);
+        output['normals'].push(-normal['x']);
+        output['normals'].push(-normal['y']);
+        output['normals'].push(-normal['z']);
     }
     const texcoords = parsed['models'][0]['textureCoords'];
     for (const texcoord of texcoords) {
