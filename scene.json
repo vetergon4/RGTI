@@ -3,8 +3,8 @@
     {
       "type": "camera",
       "translation": [
-        0,
         1,
+        5,
         20
       ],
       "aabb": {
@@ -47,8 +47,8 @@
         10
       ],
       "rotation": [
-        1.5,
-        1.5,
+        1.58,
+        1.58,
         0
       ],
       "scale": [
@@ -113,8 +113,8 @@
         -10
       ],
       "rotation": [
-        1.5,
-        1.5,
+        1.58,
+        1.58,
         0
       ],
       "scale": [
@@ -218,7 +218,7 @@
       ],
       "scale": [
         0.1,
-        3,
+        4,
         0.1
       ]
     },
@@ -324,7 +324,7 @@
     {
       "type": "model",
       "mesh": 2,
-      "id": "floor",
+      "id": "floor2",
       "texture": 4,
       "aabb": {
         "min": [
@@ -357,12 +357,45 @@
     {
       "type": "model",
       "mesh": 2,
-      "id": "floor",
+      "id": "floor-vert-3",
+      "texture": 4,
+      "aabb": {
+        "min": [
+          -10,
+          -0.1,
+          -3
+        ],
+        "max": [
+          10,
+          0.1,
+          3
+        ]
+      },
+      "translation": [
+        0,
+        -4,
+        -12
+      ],
+      "rotation": [
+        1.57079633,
+        3.14,
+        0
+      ],
+      "scale": [
+        10,
+        0,
+        3 
+      ]
+    },
+    {
+      "type": "model",
+      "mesh": 2,
+      "id": "floor1",
       "texture": 4,
       "aabb": {
         "min": [
           -7.5,
-          0,
+          -1,
           -7.5
         ],
         "max": [
@@ -455,39 +488,6 @@
     },
     {
       "type": "model",
-      "mesh": 2,
-      "id": "floor3",
-      "texture": 4,
-      "aabb": {
-        "min": [
-          -7.5,
-          0,
-          -7.5
-        ],
-        "max": [
-          7.5,
-          1,
-          7.5
-        ]
-      },
-      "translation": [
-        0,
-        4,
-        -23
-      ],
-      "rotation": [
-        0,
-        0,
-        0
-      ],
-      "scale": [
-        1.5,
-        0,
-        1.5
-      ]
-    },
-    {
-      "type": "model",
       "mesh": 0,
       "id": "pole_bottom2",
       "texture": 5,
@@ -505,18 +505,18 @@
       },
       "translation": [
         0,
-        7,
-        -23
+        0,
+        -20
       ],
       "rotation": [
-        1.5,
-        1.5,
+        1.58,
+        1.58,
         0
       ],
       "scale": [
         0.5,
         0.5,
-        3
+        10
       ]
     },
     {
@@ -539,7 +539,7 @@
       "translation": [
         0,
         10,
-        -23
+        -20
       ],
       "rotation": [
         0,
@@ -572,7 +572,7 @@
       "translation": [
         -3,
         6,
-        -23
+        -20
       ],
       "rotation": [
         0,
@@ -605,7 +605,7 @@
       "translation": [
         3,
         6,
-        -23
+        -20
       ],
       "rotation": [
         0,
@@ -621,18 +621,18 @@
     {
       "type": "model",
       "mesh": 2,
-      "id": "floor",
+      "id": "floor4",
       "texture": 4,
       "aabb": {
         "min": [
-          -7.5,
-          0,
-          -7.5
+          -10,
+          -1,
+          -5
         ],
         "max": [
-          7.5,
-          1,
-          7.5
+          10,
+          0,
+          5
         ]
       },
       "translation": [
@@ -653,8 +653,74 @@
     },
     {
       "type": "model",
+      "mesh": 2,
+      "id": "floor-vert-4",
+      "texture": 4,
+      "aabb": {
+        "min": [
+          -10,
+          -0.1,
+          -3
+        ],
+        "max": [
+          10,
+          0.1,
+          3
+        ]
+      },
+      "translation": [
+        0,
+        -3,
+        -27
+      ],
+      "rotation": [
+        1.57079633,
+        0,
+        0
+      ],
+      "scale": [
+        10,
+        0,
+        3 
+      ]
+    },
+    {
+      "type": "model",
+      "mesh": 2,
+      "id": "floor-vert-5",
+      "texture": 4,
+      "aabb": {
+        "min": [
+          -10,
+          -1,
+          -3
+        ],
+        "max": [
+          10,
+          1,
+          3
+        ]
+      },
+      "translation": [
+        0,
+        -3,
+        -37
+      ],
+      "rotation": [
+        1.57079633,
+        3.14,
+        0
+      ],
+      "scale": [
+        10,
+        0,
+        3 
+      ]
+    },
+    {
+      "type": "model",
       "mesh": 0,
-      "id": "pole_bottomundefined",
+      "id": "pole_bottomundefined1",
       "texture": 5,
       "aabb": {
         "min": [
@@ -674,13 +740,46 @@
         -32
       ],
       "rotation": [
-        1.5,
-        1.5,
+        1.58,
+        1.58,
         0
       ],
       "scale": [
-        0.5,
-        0.5,
+        1,
+        1,
+        7
+      ]
+    },
+    {
+      "type": "model",
+      "mesh": 0,
+      "id": "pole_bottomundefined1",
+      "texture": 5,
+      "aabb": {
+        "min": [
+          -1,
+          -0.1,
+          -1
+        ],
+        "max": [
+          1,
+          0.1,
+          1
+        ]
+      },
+      "translation": [
+        6,
+        5,
+        -32
+      ],
+      "rotation": [
+        1.58,
+        1.58,
+        0
+      ],
+      "scale": [
+        1,
+        1,
         7
       ]
     },
@@ -702,7 +801,7 @@
         ]
       },
       "translation": [
-        -3,
+        0,
         11,
         -32
       ],
@@ -712,9 +811,438 @@
         0
       ],
       "scale": [
-        0.5,
-        0.5,
-        6
+        1,
+        1,
+        10
+      ]
+    },
+    {
+      "type": "model",
+      "mesh": 0,
+      "id": "connecting-pole2",
+      "texture": 5,
+      "aabb": {
+        "min": [
+          -1,
+          -0.1,
+          -1
+        ],
+        "max": [
+          1,
+          0.1,
+          1
+        ]
+      },
+      "translation": [
+        0,
+        11,
+        -58
+      ],
+      "rotation": [
+        0,
+        0.25,
+        0
+      ],
+      "scale": [
+        0.8,
+        0.8,
+        30
+      ]
+    },
+    {
+      "type": "model",
+      "mesh": 0,
+      "id": "connecting-pole2",
+      "texture": 5,
+      "aabb": {
+        "min": [
+          -1,
+          -0.1,
+          -1
+        ],
+        "max": [
+          1,
+          0.1,
+          1
+        ]
+      },
+      "translation": [
+        0,
+        11,
+        -58
+      ],
+      "rotation": [
+        0,
+        -0.25,
+        0
+      ],
+      "scale": [
+        0.8,
+        0.8,
+        30
+      ]
+    },
+    {
+      "type": "model",
+      "mesh": 2,
+      "id": "floor5",
+      "texture": 4,
+      "aabb": {
+        "min": [
+          -7.5,
+          -1,
+          -7.5
+        ],
+        "max": [
+          7.5,
+          1,
+          7.5
+        ]
+      },
+      "translation": [
+        0,
+        0,
+        -82
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        10,
+        0,
+        5
+      ]
+    },
+    {
+      "type": "model",
+      "mesh": 2,
+      "id": "floor-vert-4",
+      "texture": 4,
+      "aabb": {
+        "min": [
+          -10,
+          -0.1,
+          -3
+        ],
+        "max": [
+          10,
+          0.1,
+          3
+        ]
+      },
+      "translation": [
+        0,
+        -3,
+        -77
+      ],
+      "rotation": [
+        1.57079633,
+        0,
+        0
+      ],
+      "scale": [
+        10,
+        0,
+        3 
+      ]
+    },
+    {
+      "type": "model",
+      "mesh": 2,
+      "id": "floor-vert-4",
+      "texture": 4,
+      "aabb": {
+        "min": [
+          -10,
+          -0.1,
+          -3
+        ],
+        "max": [
+          10,
+          0.1,
+          3
+        ]
+      },
+      "translation": [
+        0,
+        -3,
+        -87
+      ],
+      "rotation": [
+        1.57079633,
+        3.14,
+        0
+      ],
+      "scale": [
+        10,
+        0,
+        3 
+      ]
+    },
+    {
+      "type": "model",
+      "mesh": 0,
+      "id": "pole_bottomundefined5",
+      "texture": 5,
+      "aabb": {
+        "min": [
+          -1,
+          -0.1,
+          -1
+        ],
+        "max": [
+          1,
+          0.1,
+          1
+        ]
+      },
+      "translation": [
+        -6,
+        5,
+        -82
+      ],
+      "rotation": [
+        1.58,
+        1.58,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        7
+      ]
+    },
+    {
+      "type": "model",
+      "mesh": 0,
+      "id": "pole_bottomundefined5",
+      "texture": 5,
+      "aabb": {
+        "min": [
+          -1,
+          -0.1,
+          -1
+        ],
+        "max": [
+          1,
+          0.1,
+          1
+        ]
+      },
+      "translation": [
+        6,
+        5,
+        -82
+      ],
+      "rotation": [
+        1.58,
+        1.58,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        7
+      ]
+    },
+    {
+      "type": "model",
+      "mesh": 0,
+      "id": "pole_topundefined5",
+      "texture": 5,
+      "aabb": {
+        "min": [
+          -1,
+          -0.1,
+          -1
+        ],
+        "max": [
+          1,
+          0.1,
+          1
+        ]
+      },
+      "translation": [
+        0,
+        11,
+        -82
+      ],
+      "rotation": [
+        0,
+        1.5,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        10
+      ]
+    },
+    {
+      "type": "model",
+      "mesh": 0,
+      "id": "rope",
+      "texture": 6,
+      "aabb": {
+        "min": [
+          -0.1,
+          -3,
+          -0.1
+        ],
+        "max": [
+          0.1,
+          5,
+          0.1
+        ]
+      },
+      "translation": [
+        0,
+        7,
+        -59
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.1,
+        5,
+        0.1
+      ]
+    },
+    {
+      "type": "model",
+      "mesh": 0,
+      "id": "rope",
+      "texture": 6,
+      "aabb": {
+        "min": [
+          -0.1,
+          -3,
+          -0.1
+        ],
+        "max": [
+          0.1,
+          5,
+          0.1
+        ]
+      },
+      "translation": [
+        3.7,
+        7,
+        -42
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.1,
+        5,
+        0.1
+      ]
+    },
+    {
+      "type": "model",
+      "mesh": 0,
+      "id": "rope",
+      "texture": 6,
+      "aabb": {
+        "min": [
+          -0.1,
+          -3,
+          -0.1
+        ],
+        "max": [
+          0.1,
+          3,
+          0.1
+        ]
+      },
+      "translation": [
+        -3.7,
+        7,
+        -42
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.1,
+        5,
+        0.1
+      ]
+    },
+    {
+      "type": "model",
+      "mesh": 0,
+      "id": "rope",
+      "texture": 6,
+      "aabb": {
+        "min": [
+          -0.1,
+          -3,
+          -0.1
+        ],
+        "max": [
+          0.1,
+          5,
+          0.1
+        ]
+      },
+      "translation": [
+        -3,
+        7,
+        -70
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.1,
+        5,
+        0.1
+      ]
+    },
+    {
+      "type": "model",
+      "mesh": 0,
+      "id": "rope",
+      "texture": 6,
+      "aabb": {
+        "min": [
+          -0.1,
+          -3,
+          -0.1
+        ],
+        "max": [
+          0.1,
+          5,
+          0.1
+        ]
+      },
+      "translation": [
+        3,
+        7,
+        -70
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.1,
+        5,
+        0.1
       ]
     }
   ],

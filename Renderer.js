@@ -65,18 +65,14 @@ export class Renderer {
         gl.uniformMatrix4fv(program.uniforms.uProjection, false, camera.projection);
 
         this.count++
+
+        // node.transform[9:11] rotation
+        // node.transform[12:14] translation
         scene.traverse(
             node => {
                 if (node.id == "boat") {
                     node.transform[14] -= .1;
-                } //else if (node.id == "water") {
-                  //  if (this.count % 5 == 0) {
-                  //      node.transform[15] += .1
-                  //  } else {
-                  //      node.transform[15] -= .1
-                  //  }
-                //}
-                else if (node.id == "obstacle") {
+                } else if (node.id == "obstacle") {
                     //console.log(node.transform[12], this.boxDir)
 
                     if (this.boxDir == "left") {
@@ -91,7 +87,11 @@ export class Renderer {
                             this.boxDir = "left"
                         }
                     }
-                }
+                } //else if (node.id == "pole_top2") {
+                  //  // One turn per 2 seconds
+                  //  console.log(node)
+                  //  node.transform[10] += Math.PI / 2
+                //}
                 
                 matrixStack.push(mat4.clone(matrix));
                 mat4.mul(matrix, matrix, node.transform);
