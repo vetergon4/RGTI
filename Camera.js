@@ -28,7 +28,8 @@ export class Camera extends Node {
 
     update(dt, binded) {
         const c = this;
-        c.maxSpeed = Math.max(c.maxSpeed, 10)
+        console.log(this.translation[1])
+        c.maxSpeed = Math.max(c.maxSpeed, 8)
         if(c.translation[1] == 1){
             c.onGround = true;
         } 
@@ -49,6 +50,9 @@ export class Camera extends Node {
                 vec3.add(acc, acc, forward);
                 vec3.add(acc, acc, forward);
                 vec3.add(acc, acc, forward);
+                if (this.keys["Space"]) {
+                    vec3.add(acc, acc, up);
+                }
             }
         }
         if (this.keys['KeyS']) {
@@ -75,8 +79,12 @@ export class Camera extends Node {
                 vec3.sub(acc, acc, right);
             }
         }
-        if (this.keys['Space'] && c.onGround) {
-            c.velocity[1] = 20;
+        if (this.keys['Space'] && c.onGround || binded) {
+            if (c.onGround) {
+                c.velocity[1] = 20;
+            } else {
+                c.velocity[1] = 10
+            }
             c.onGround = false;
         }
         if (c.translation[1] > 0.90 && !binded) {
