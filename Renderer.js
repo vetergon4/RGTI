@@ -74,11 +74,12 @@ export class Renderer {
                     node.transform[14] -= .1;
                 } else if (node.id == "coin"){ //vrtenje kovanca
 
-                    //node.transform[9] -= .3;
-                    //node.transform[10] -= .3;
-                    //node.transform[11] -= .3;
-                    mat4.rotateX(node, node, 0.005);
-                    mat4.rotateY(node, node, 0.007); 
+                    node.rotation[9] *= .3;
+                    node.rotation[10] *= .3;
+                    node.rotation[11] *= .3;
+
+                    node.updateTransform();
+
                 
                 } else if (node.id == "obstacle") {
                     //console.log(node.transform[12], this.boxDir)

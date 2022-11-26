@@ -106,7 +106,18 @@ document.addEventListener('DOMContentLoaded', async () => {
     const canvas = document.querySelector('canvas');
     const app = new App(canvas);
     const gui = new GUI();
-    gui.add(app, 'enableCamera'); 
+    
+    gui.add(app, 'enableCamera').onChange(function(){
+        var timer = setInterval(function() {
+            document.getElementById("time").innerHTML++;
+            if(document.getElementById("time").innerHTML == 20){
+                alert("GAME OVER :(");
+                window.location.replace("menu.html");
+            }
+        }, 1000);
+    });
+    
+    //gui.add(app, 'enableCamera'); 
     await app.init()
 });
 
