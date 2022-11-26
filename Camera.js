@@ -37,12 +37,14 @@ export class Camera extends Node {
             Math.cos(c.rotation[1]), 0, -Math.sin(c.rotation[1]));
         const up = vec3.set(vec3.create(), 0, 2, 0);
         const gravity = vec3.set(vec3.create(), 0, 0.2, 0);
+        console.log("Can i bind", binded)
 
         // 1: add movement acceleration
         let acc = vec3.create();
         if (this.keys['KeyW']) {
             vec3.add(acc, acc, forward);
             if(binded){
+                console.log("TURBO SPEED")
                 vec3.add(acc, acc, forward);
                 vec3.add(acc, acc, forward);
                 vec3.add(acc, acc, forward);
@@ -80,7 +82,6 @@ export class Camera extends Node {
             vec3.sub(acc, acc, up);
         }
         if(this.keys['KeyQ']){
-            
             this.binded = true; // prijema vrv
         }
         if(!this.keys['KeyQ']){
