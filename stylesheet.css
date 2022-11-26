@@ -1,0 +1,29 @@
+body, html {
+    height: 100%;
+}
+
+
+a{
+  padding-right: 1cm;
+  font-size: 150px;
+  text-decoration: none;
+  font-family: fantasy;
+}
+
+#buttonPlay{
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
+.menu{
+  background-image: url('menuSlika.jpg'); 
+  height: 100%;    
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+audio{
+  position: absolute;
+}

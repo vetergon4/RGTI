@@ -1,6 +1,7 @@
-import { mat4 } from './lib/gl-matrix-module.js';
+import { vec3, mat4 } from './lib/gl-matrix-module.js';
 
 import { WebGL } from './common/engine/WebGL.js';
+import { SceneLoader } from './SceneLoader.js';
 
 import { shaders } from './shaders.js';
 
@@ -8,6 +9,9 @@ export class Renderer {
 
     constructor(gl) {
         this.gl = gl;
+        this.count = 0;
+        this.boxDir = "left"
+        this.Y_MIN = -8
 
         gl.clearColor(1, 1, 1, 1);
         gl.enable(gl.DEPTH_TEST);
@@ -23,6 +27,7 @@ export class Renderer {
     }
 
     prepare(scene) {
+
         scene.nodes.forEach(node => {
             node.gl = {};
             if (node.mesh) {
@@ -34,13 +39,22 @@ export class Renderer {
         });
     }
 
-    render(scene, camera) {
+    render(scene, camera, light) {
         const gl = this.gl;
 
         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
-        const program = this.programs.simple;
+        let program = this.programs.simple;
         gl.useProgram(program.program);
+        gl.enable(gl.DEPTH_TEST);
+        gl.enable(gl.CULL_FACE);
+
+        camera.traverse((node) => {
+            if (node.transform[13] <= this.Y_MIN) {
+                this.gameOver = true;
+                node.transform[13] = this.Y_MIN
+            }
+        })
 
         let matrix = mat4.create();
         let matrixStack = [];
@@ -49,9 +63,54 @@ export class Renderer {
         mat4.invert(viewMatrix, viewMatrix);
         mat4.copy(matrix, viewMatrix);
         gl.uniformMatrix4fv(program.uniforms.uProjection, false, camera.projection);
+ 
+        // Lights
+        
+        gl.uniform3fv(program.uniforms.uLightColor,
+            vec3.scale(vec3.create(), light.color, light.intensity / 255));
+        gl.uniform3fv(program.uniforms.uLightPosition, light.position);
+        gl.uniform3fv(program.uniforms.uLightAttenuation, light.attenuation);
+        gl.uniform1f(program.uniforms.uAmbient, light.ambient);
+        
+        this.count++
 
+        // node.transform[9:11] rotation
+        // node.transform[12:14] translation
         scene.traverse(
             node => {
+                if (node.id == "boat") {
+                    node.transform[14] -= .1;
+                } else if (node.id == "coin"){ //vrtenje kovanca
+
+                    node.rotation[9] *= .3;
+                    node.rotation[10] *= .3;
+                    node.rotation[11] *= .3;
+
+                    node.updateTransform();
+
+                
+                } else if (node.id == "obstacle") {
+                    //console.log(node.transform[12], this.boxDir)
+
+                    if (this.boxDir == "left") {
+                        
+                        node.transform[12] -= .1
+                        if (node.transform[12] <= -4) {
+                            this.boxDir = "right"
+                        }
+                    }
+                    if (this.boxDir == "right") {
+                        node.transform[12] += .1
+                        if (node.transform[12] >= 4) {
+                            this.boxDir = "left"
+                        }
+                    }
+                } //else if (node.id == "pole_top2") {
+                  //  // One turn per 2 seconds
+                  //  console.log(node)
+                  //  node.transform[10] += Math.PI / 2
+                //}
+                
                 matrixStack.push(mat4.clone(matrix));
                 mat4.mul(matrix, matrix, node.transform);
                 if (node.gl.vao) {
@@ -59,14 +118,19 @@ export class Renderer {
                     gl.uniformMatrix4fv(program.uniforms.uViewModel, false, matrix);
                     gl.activeTexture(gl.TEXTURE0);
                     gl.bindTexture(gl.TEXTURE_2D, node.gl.texture);
-                    gl.uniform1i(program.uniforms.uTexture, 0);
+                    gl.uniform4f(program.uniforms.uOffset, 4, 0, 0, 0);
+                
                     gl.drawElements(gl.TRIANGLES, node.gl.indices, gl.UNSIGNED_SHORT, 0);
                 }
+                
             },
             node => {
                 matrix = matrixStack.pop();
             }
         );
+        
+        
+
     }
 
     createModel(model) {
