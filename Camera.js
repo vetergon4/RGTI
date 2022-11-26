@@ -28,9 +28,9 @@ export class Camera extends Node {
     update(dt, binded) {
         const c = this;
         c.maxSpeed = Math.max(c.maxSpeed, 10)
-        if(c.translation[1] <= -1){
-            c.onGround = true;
-        } 
+        //if(c.translation[1] <= -1){
+        //    c.onGround = true;
+        //} 
         const forward = vec3.set(vec3.create(),
             -Math.sin(c.rotation[1]), 0, -Math.cos(c.rotation[1]));
         const right = vec3.set(vec3.create(),
