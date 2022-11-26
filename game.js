@@ -8,7 +8,7 @@ import { Camera } from './Camera.js';
 import { SceneLoader } from './SceneLoader.js';
 import { SceneBuilder } from './SceneBuilder.js';
 import Functions from './Functions.js';
-
+import {Light} from './Light.js';
 class App extends Application {
 
     start() {
@@ -18,6 +18,7 @@ class App extends Application {
         this.startTime = this.time;
         this.aspect = 1;
         this.binded = false;
+        this.light = new Light();
         this.pointerlockchangeHandler = this.pointerlockchangeHandler.bind(this);
         document.addEventListener('pointerlockchange', this.pointerlockchangeHandler);
 
@@ -81,7 +82,7 @@ class App extends Application {
 
     render() {
         if (this.scene) {
-            this.renderer.render(this.scene, this.camera);
+            this.renderer.render(this.scene, this.camera, this.light);
         }
     }
 

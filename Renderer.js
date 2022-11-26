@@ -1,4 +1,4 @@
-import { mat4 } from './lib/gl-matrix-module.js';
+import { vec3, mat4 } from './lib/gl-matrix-module.js';
 
 import { WebGL } from './common/engine/WebGL.js';
 import { SceneLoader } from './SceneLoader.js';
@@ -39,7 +39,7 @@ export class Renderer {
         });
     }
 
-    render(scene, camera) {
+    render(scene, camera, light) {
         const gl = this.gl;
 
         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
@@ -63,7 +63,15 @@ export class Renderer {
         mat4.invert(viewMatrix, viewMatrix);
         mat4.copy(matrix, viewMatrix);
         gl.uniformMatrix4fv(program.uniforms.uProjection, false, camera.projection);
-
+ 
+        // Lights
+        
+        gl.uniform3fv(program.uniforms.uLightColor,
+            vec3.scale(vec3.create(), light.color, light.intensity / 255));
+        gl.uniform3fv(program.uniforms.uLightPosition, light.position);
+        gl.uniform3fv(program.uniforms.uLightAttenuation, light.attenuation);
+        gl.uniform1f(program.uniforms.uAmbient, light.ambient);
+        
         this.count++
 
         // node.transform[9:11] rotation
@@ -107,7 +115,9 @@ export class Renderer {
             node => {
                 matrix = matrixStack.pop();
             }
-        );    
+        );
+        
+        
 
     }
 
