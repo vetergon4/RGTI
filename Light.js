@@ -10,7 +10,7 @@ export class Light extends Node {
             color            : [255, 255, 255],
             intensity        : 1,                        // intenziteta barve
             attenuation      : [0.4, 0, 0.0001],         // Prvi parameter jakost svetlobe,  zadnji kako hitro upada glede na oddaljenost
-            ambient          : 0.1
+            ambient          : 0.2
 
         });
     }

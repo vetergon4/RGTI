@@ -19,7 +19,7 @@ export class Physics {
                 vec3.scaleAndAdd(node.translation, node.translation, node.velocity, dt);
                 node.updateTransform();
                 this.scene.traverse(other => {
-                    if (node !== other) {
+                    if (other.id && other.id.startsWith("floor")) {
                         if(this.resolveCollision(node, other)){
                             camera.onGround = true;
                         }
