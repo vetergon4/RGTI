@@ -23,3 +23,7 @@ a{
   background-repeat: no-repeat;
   background-size: cover;
 }
+
+audio{
+  position: absolute;
+}

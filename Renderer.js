@@ -72,10 +72,19 @@ export class Renderer {
             node => {
                 if (node.id == "boat") {
                     node.transform[14] -= .1;
+                } else if (node.id == "coin"){ //vrtenje kovanca
+
+                    //node.transform[9] -= .3;
+                    //node.transform[10] -= .3;
+                    //node.transform[11] -= .3;
+                    mat4.rotateX(node, node, 0.005);
+                    mat4.rotateY(node, node, 0.007); 
+                
                 } else if (node.id == "obstacle") {
                     //console.log(node.transform[12], this.boxDir)
 
                     if (this.boxDir == "left") {
+                        
                         node.transform[12] -= .1
                         if (node.transform[12] <= -4) {
                             this.boxDir = "right"

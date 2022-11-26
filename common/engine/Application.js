@@ -4,6 +4,8 @@ export class Application {
         this._update = this._update.bind(this);
 
         this.canvas = canvas;
+        
+
         this._initGL(glOptions);
     }
 
@@ -16,6 +18,7 @@ export class Application {
         this.gl = null;
         try {
             this.gl = this.canvas.getContext('webgl2', glOptions);
+            
         } catch (error) {
         }
 

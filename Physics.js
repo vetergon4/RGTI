@@ -37,6 +37,11 @@ export class Physics {
                     this.allowBind = false;
                 }
             }
+
+            if(node.id =="coin"){
+
+            }
+            
         });
     }
 
