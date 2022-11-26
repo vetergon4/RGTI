@@ -15,13 +15,17 @@ export class Physics {
         let minDist = 10000;
 
         this.scene.traverse(node => {
-            if (node.velocity) {
+            if (node instanceof Camera) {
                 vec3.scaleAndAdd(node.translation, node.translation, node.velocity, dt);
                 node.updateTransform();
                 this.scene.traverse(other => {
                     if (other.id && other.id.startsWith("floor")) {
                         if(this.resolveCollision(node, other)){
                             camera.onGround = true;
+                        }
+                    } else if (other.id && other.id == "water" && node.translation[1] < 0) {
+                        if (this.resolveCollision(node, other)) {
+                            camera.inWater = true;
                         }
                     }
                 });

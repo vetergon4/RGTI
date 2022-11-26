@@ -317,87 +317,6 @@
     },
     {
       "type": "model",
-      "mesh": 6,
-      "id": "coin",
-      "texture": 8,
-      "aabb": {
-        "min": [
-          -1,-1,-1
-        ],
-        "max": [
-          1,1,1
-        ]
-      },
-      "translation": [
-        3,
-        0.5,
-        15
-      ],
-      "rotation": [
-        1.57079633,
-        0,
-        0
-      ],
-      "scale": [
-        1,1,1
-      ]
-    },
-    {
-      "type": "model",
-      "mesh": 6,
-      "id": "coin",
-      "texture": 8,
-      "aabb": {
-        "min": [
-          -1,-1,-1
-        ],
-        "max": [
-          1,1,1
-        ]
-      },
-      "translation": [
-        0.5,
-        3,
-        8
-      ],
-      "rotation": [
-        1.57079633,
-        0,
-        0
-      ],
-      "scale": [
-        1,1,1
-      ]
-    },
-    {
-      "type": "model",
-      "mesh": 6,
-      "id": "coin",
-      "texture": 8,
-      "aabb": {
-        "min": [
-          -1,-1,-1
-        ],
-        "max": [
-          1,1,1
-        ]
-      },
-      "translation": [
-        -1,
-        0.5,
-        -5
-      ],
-      "rotation": [
-        1.57079633,
-        0,
-        0
-      ],
-      "scale": [
-        1,1,1
-      ]
-    },
-    {
-      "type": "model",
       "mesh": 2,
       "id": "floor-vert-1",
       "texture": 4,
@@ -1483,10 +1402,115 @@
         1,
         110
       ]
-    }
-   
-
-
+    },
+    {
+      "type": "model",
+      "mesh": 6,
+      "id": "coin",
+      "texture": 9,
+      "aabb": {
+        "min": [
+          -1,-1,-1
+        ],
+        "max": [
+          1,1,1
+        ]
+      },
+      "translation": [
+        -2,
+        0.5,
+        13
+      ],
+      "rotation": [
+        1.57079633,
+        0,
+        0
+      ],
+      "scale": [
+        1,1,1
+      ]
+    },
+    {
+      "type": "model",
+      "mesh": 5,
+      "id": "coin",
+      "texture": 9,
+      "aabb": {
+        "min": [
+          -1,-1,-1
+        ],
+        "max": [
+          1,1,1
+        ]
+      },
+      "translation": [
+        3,
+        0.5,
+        15
+      ],
+      "rotation": [
+        1.57079633,
+        0,
+        0
+      ],
+      "scale": [
+        1,1,1
+      ]
+    },
+    {
+      "type": "model",
+      "mesh": 5,
+      "id": "coin",
+      "texture": 9,
+      "aabb": {
+        "min": [
+          -1,-1,-1
+        ],
+        "max": [
+          1,1,1
+        ]
+      },
+      "translation": [
+        0.5,
+        3,
+        8
+      ],
+      "rotation": [
+        1.57079633,
+        0,
+        0
+      ],
+      "scale": [
+        1,1,1
+      ]
+    },
+    {
+      "type": "model",
+      "mesh": 5,
+      "id": "coin",
+      "texture": 9,
+      "aabb": {
+        "min": [
+          -1,-1,-1
+        ],
+        "max": [
+          1,1,1
+        ]
+      },
+      "translation": [
+        -1,
+        0.5,
+        -5
+      ],
+      "rotation": [
+        1.57079633,
+        0,
+        0
+      ],
+      "scale": [
+        1,1,1
+      ]
+    } 
   ],
   "textures": [
     "./common/images/crate-diffuse.png",

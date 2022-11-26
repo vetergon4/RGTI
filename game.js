@@ -15,6 +15,7 @@ class App extends Application {
         const gl = this.gl;
         this.renderer = new Renderer(gl);
         this.time = Date.now();
+        this.inWater = false;
         this.startTime = this.time;
         this.aspect = 1;
         this.binded = false;
@@ -72,6 +73,8 @@ class App extends Application {
         
         if (this.camera) {
             this.camera.update(dt, this.binded);
+            this.inWater = this.camera.inWater;
+            console.log(this.inWater)
         }
         
         if (this.physics) {
@@ -107,12 +110,14 @@ document.addEventListener('DOMContentLoaded', async () => {
     const canvas = document.querySelector('canvas');
     const app = new App(canvas);
     const gui = new GUI();
-    
+    let over = false;
+
     gui.add(app, 'enableCamera').onChange(function(){
         var timer = setInterval(function() {
             document.getElementById("time").innerHTML++;
-            if(document.getElementById("time").innerHTML == 20){
+            if(app.inWater && !over){
                 alert("GAME OVER :(");
+                over = true
                 window.location.replace("menu.html");
             }
         }, 1000);

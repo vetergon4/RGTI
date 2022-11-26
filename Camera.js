@@ -9,7 +9,8 @@ export class Camera extends Node {
     constructor(options) {
         super(options);
         Utils.init(this, this.constructor.defaults, options);
-
+        this.inWater = false;
+        
         this.projection = mat4.create();
         this.updateProjection();
         this.binded = false; // boolean ce drzimo vrv
