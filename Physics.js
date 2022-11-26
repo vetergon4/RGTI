@@ -24,6 +24,7 @@ export class Physics {
                             camera.onGround = true;
                         }
                     } else if (other.id && other.id == "water" && node.translation[1] < 0) {
+                        console.log(other, this.resolveCollision(node, other))
                         if (this.resolveCollision(node, other)) {
                             camera.inWater = true;
                         }
