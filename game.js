@@ -1,7 +1,7 @@
 import { GUI } from './lib/dat.gui.module.js';
 
 import { Application } from './common/engine/Application.js';
-
+import { mat4, vec3 } from './lib/gl-matrix-module.js';
 import { Renderer } from './Renderer.js';
 import { Physics } from './Physics.js';
 import { Camera } from './Camera.js';
@@ -28,6 +28,7 @@ class App extends Application {
     }
 
     async load(uri) {
+        const gl = this.gl;
         const scene = await new SceneLoader().loadScene(uri);
         const builder = new SceneBuilder(scene);
         this.scene = builder.build();
@@ -39,6 +40,7 @@ class App extends Application {
             if (node instanceof Camera) {
                 this.camera = node;
             }
+
         });
 
         this.camera.aspect = this.aspect;
@@ -77,6 +79,8 @@ class App extends Application {
             this.physics.update(dt, this.binded, this.camera);
             this.binded = this.physics.allowBind;
         }
+
+        
         
     }
 
@@ -103,7 +107,18 @@ document.addEventListener('DOMContentLoaded', async () => {
     const canvas = document.querySelector('canvas');
     const app = new App(canvas);
     const gui = new GUI();
-    gui.add(app, 'enableCamera'); 
+    
+    gui.add(app, 'enableCamera').onChange(function(){
+        var timer = setInterval(function() {
+            document.getElementById("time").innerHTML++;
+            if(document.getElementById("time").innerHTML == 20){
+                alert("GAME OVER :(");
+                window.location.replace("menu.html");
+            }
+        }, 1000);
+    });
+    
+    //gui.add(app, 'enableCamera'); 
     await app.init()
 });
 

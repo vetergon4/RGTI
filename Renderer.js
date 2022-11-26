@@ -44,7 +44,7 @@ export class Renderer {
 
         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
-        const program = this.programs.simple;
+        let program = this.programs.simple;
         gl.useProgram(program.program);
         gl.enable(gl.DEPTH_TEST);
         gl.enable(gl.CULL_FACE);
@@ -80,10 +80,20 @@ export class Renderer {
             node => {
                 if (node.id == "boat") {
                     node.transform[14] -= .1;
+                } else if (node.id == "coin"){ //vrtenje kovanca
+
+                    node.rotation[9] *= .3;
+                    node.rotation[10] *= .3;
+                    node.rotation[11] *= .3;
+
+                    node.updateTransform();
+
+                
                 } else if (node.id == "obstacle") {
                     //console.log(node.transform[12], this.boxDir)
 
                     if (this.boxDir == "left") {
+                        
                         node.transform[12] -= .1
                         if (node.transform[12] <= -4) {
                             this.boxDir = "right"
@@ -108,9 +118,11 @@ export class Renderer {
                     gl.uniformMatrix4fv(program.uniforms.uViewModel, false, matrix);
                     gl.activeTexture(gl.TEXTURE0);
                     gl.bindTexture(gl.TEXTURE_2D, node.gl.texture);
-                    gl.uniform1i(program.uniforms.uTexture, 0);
+                    gl.uniform4f(program.uniforms.uOffset, 4, 0, 0, 0);
+                
                     gl.drawElements(gl.TRIANGLES, node.gl.indices, gl.UNSIGNED_SHORT, 0);
                 }
+                
             },
             node => {
                 matrix = matrixStack.pop();
