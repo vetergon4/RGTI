@@ -98,7 +98,7 @@ export class Physics {
             
             //Ce zadanemo kovanec
             if(b.id == "coin"){
-
+                console.log("zadeli smo kovanec");
                 let tocke = document.getElementById("stTock");
                 let trenutne = parseFloat(tocke.innerHTML);
                 trenutne += 1;
