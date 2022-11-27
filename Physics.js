@@ -37,7 +37,7 @@ export class Physics {
             }
             
             if (node.id == "coin") {
-                node.rotation[1] += 0.1
+                node.rotation[1] += 0.01
             }
                 
             // preveri ce smo v blizini vrvi

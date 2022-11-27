@@ -94,13 +94,13 @@ export class Renderer {
 
                     if (this.boxDir == "left") {
                         
-                        node.transform[12] -= .1
+                        node.transform[12] -= .03
                         if (node.transform[12] <= -4) {
                             this.boxDir = "right"
                         }
                     }
                     if (this.boxDir == "right") {
-                        node.transform[12] += .1
+                        node.transform[12] += .03
                         if (node.transform[12] >= 4) {
                             this.boxDir = "left"
                         }
