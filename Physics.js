@@ -29,6 +29,9 @@ export class Physics {
                             camera.inWater = true;
                         }
                     }
+                    else if(other.id && other.id == "coin"){
+                        this.resolveCollision(node, other);
+                    }
                 });
             }
             // preveri ce smo v blizini vrvi

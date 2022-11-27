@@ -4,7 +4,7 @@
       "type": "camera",
       "translation": [
         1,
-        5,
+        10,
         20
       ],
       "aabb": {
