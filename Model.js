@@ -9,6 +9,9 @@ export class Model extends Node {
         if(options.id){
             this.id = options.id;
         }
+        if(options.name){
+            this.name = options.name;
+        }
     }
 
 }

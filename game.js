@@ -20,6 +20,7 @@ class App extends Application {
         this.aspect = 1;
         this.binded = false;
         this.light = new Light();
+        this.endGame = false;
         this.pointerlockchangeHandler = this.pointerlockchangeHandler.bind(this);
         document.addEventListener('pointerlockchange', this.pointerlockchangeHandler);
 
@@ -73,14 +74,16 @@ class App extends Application {
         
         if (this.camera) {
             this.camera.update(dt, this.binded);
-            this.inWater = this.camera.inWater;
-            console.log(this.inWater)
+            this.inWater = this.camera.inWater;    
         }
         
         if (this.physics) {
             this.binded = this.camera.binded;
             this.physics.update(dt, this.binded, this.camera);
             this.binded = this.physics.allowBind;
+            if(this.camera.translation[2] < -84 || this.camera.endCoin){
+                this.endGame = true;
+            }
         }
 
         
@@ -115,11 +118,19 @@ document.addEventListener('DOMContentLoaded', async () => {
     gui.add(app, 'enableCamera').onChange(function(){
         var timer = setInterval(function() {
             let time = document.getElementById("time").innerHTML 
-            console.log(time, app.inWater)
+            //console.log(time, app.inWater)
             if((app.inWater || time == "15") && !over){
                 alert("GAME OVER :(");
                 over = true
                 window.location.replace("menu.html");
+            }
+            if(app.endGame && !over ){
+                over = true
+                let tocke = document.getElementById("stTock");
+                document.getElementById("endPoints").innerHTML = tocke.innerHTML
+                document.getElementById("endTime").innerHTML = time;
+                document.getElementById("finishScreen").style.display="block";
+                //console.log("Ending");
             }
             document.getElementById("time").innerHTML++;
         }, 1000);
@@ -216,7 +227,8 @@ function generateRope(translation, id) {
     return rope
 }
 
-console.log(generatePlatform([0, 0, -32]),3)
+/*console.log(generatePlatform([0, 0, -32]),3)
 console.log(generatePole([0, 5, -32],[3,11,-32], 3))
 console.log(generateRope([-3, 17, -20],2))
 console.log(generateRope([3, 17, -20],2))
+*/

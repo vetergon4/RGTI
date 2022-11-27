@@ -29,7 +29,9 @@ export class Physics {
                         }
                     }
                     else if(other.id && other.id == "coin"){
-                        this.resolveCollision(node, other);
+                        if(this.resolveCollision(node, other) && other.name == "final-coin"){
+                            camera.endCoin = true;
+                        }
                     }
                 });
             }
@@ -108,6 +110,8 @@ export class Physics {
                 zvok.play();
                 vec3.add(b.translation, b.translation, [200, 200, 200]);
                 b.updateTransform();
+                
+                return true;
             }
         }
 

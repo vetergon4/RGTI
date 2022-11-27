@@ -10,7 +10,7 @@ export class Camera extends Node {
         super(options);
         Utils.init(this, this.constructor.defaults, options);
         this.inWater = false;
-        
+        this.endCoin = false;
         this.projection = mat4.create();
         this.updateProjection();
         this.binded = false; // boolean ce drzimo vrv
@@ -124,7 +124,7 @@ export class Camera extends Node {
             c.velocity[0] *= c.maxSpeed / len
             c.velocity[2] *= c.maxSpeed / len
         }
-        //console.log("x:", c.translation[0], "y:", c.translation[1], "z:", c.translation[2]);
+        //console.log("z:", c.translation[2]);
     }
 
 
