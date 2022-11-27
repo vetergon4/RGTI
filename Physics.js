@@ -24,7 +24,6 @@ export class Physics {
                             camera.onGround = true;
                         }
                     } else if (other.id && other.id == "water" || node.translation[1] < -5) {
-                        console.log(other, this.resolveCollision(node, other), node.translation[1])
                         if (this.resolveCollision(node, other)) {
                             camera.inWater = true;
                         }
@@ -34,6 +33,11 @@ export class Physics {
                     }
                 });
             }
+            
+            if (node.id == "coin") {
+                node.rotation[1] += 0.1
+            }
+                
             // preveri ce smo v blizini vrvi
             if(node.id == "rope") { 
                 if(binded) {
@@ -44,17 +48,7 @@ export class Physics {
                     if(dist < 5){
                         allowBind = true;
                     }
-                    //else {
-                    //    this.allowBind = false;
-                    //}
                 }
-                //else{
-                //    this.allowBind = false;
-                //}
-            }
-
-            if(node.id =="coin"){
-
             }
             
         });

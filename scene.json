@@ -290,7 +290,7 @@
     },
     {
       "type": "model",
-      "mesh": 6,
+      "mesh": 5,
       "id": "coin",
       "texture": 8,
       "aabb": {
@@ -302,9 +302,63 @@
         ]
       },
       "translation": [
-        -2,
-        0.5,
-        13
+        -3,
+        6,
+        -40
+      ],
+      "rotation": [
+        1.57079633,
+        0,
+        0
+      ],
+      "scale": [
+        1,1,1
+      ]
+    },
+    {
+      "type": "model",
+      "mesh": 5,
+      "id": "coin",
+      "texture": 8,
+      "aabb": {
+        "min": [
+          -1,-1,-1
+        ],
+        "max": [
+          1,1,1
+        ]
+      },
+      "translation": [
+        3,
+        6,
+        -70
+      ],
+      "rotation": [
+        1.57079633,
+        0,
+        0
+      ],
+      "scale": [
+        1,1,1
+      ]
+    },
+    {
+      "type": "model",
+      "mesh": 5,
+      "id": "coin",
+      "texture": 8,
+      "aabb": {
+        "min": [
+          -1,-1,-1
+        ],
+        "max": [
+          1,1,1
+        ]
+      },
+      "translation": [
+        -3,
+        6,
+        -70
       ],
       "rotation": [
         1.57079633,
@@ -1576,8 +1630,116 @@
         ]
       },
       "translation": [
+        0,
+        4,
+        -30
+      ],
+      "rotation": [
+        1.57079633,
+        0,
+        0
+      ],
+      "scale": [
+        1,1,1
+      ]
+    },
+    {
+      "type": "model",
+      "mesh": 5,
+      "id": "coin",
+      "texture": 9,
+      "aabb": {
+        "min": [
+          -1,-1,-1
+        ],
+        "max": [
+          1,1,1
+        ]
+      },
+      "translation": [
         3,
-        0.5,
+        6,
+        -40
+      ],
+      "rotation": [
+        1.57079633,
+        0,
+        0
+      ],
+      "scale": [
+        1,1,1
+      ]
+    },
+    {
+      "type": "model",
+      "mesh": 5,
+      "id": "coin",
+      "texture": 9,
+      "aabb": {
+        "min": [
+          -1,-1,-1
+        ],
+        "max": [
+          1,1,1
+        ]
+      },
+      "translation": [
+        -2,
+        7,
+        -50
+      ],
+      "rotation": [
+        1.57079633,
+        0,
+        0
+      ],
+      "scale": [
+        1,1,1
+      ]
+    },
+    {
+      "type": "model",
+      "mesh": 5,
+      "id": "coin",
+      "texture": 9,
+      "aabb": {
+        "min": [
+          -1,-1,-1
+        ],
+        "max": [
+          1,1,1
+        ]
+      },
+      "translation": [
+        2,
+        7,
+        -50
+      ],
+      "rotation": [
+        1.57079633,
+        0,
+        0
+      ],
+      "scale": [
+        1,1,1
+      ]
+    },
+    {
+      "type": "model",
+      "mesh": 5,
+      "id": "coin",
+      "texture": 9,
+      "aabb": {
+        "min": [
+          -1,-1,-1
+        ],
+        "max": [
+          1,1,1
+        ]
+      },
+      "translation": [
+        0,
+        1,
         15
       ],
       "rotation": [
@@ -1603,8 +1765,8 @@
         ]
       },
       "translation": [
-        0.5,
-        3,
+        0,
+        6,
         8
       ],
       "rotation": [
@@ -1631,8 +1793,8 @@
       },
       "translation": [
         -1,
-        0.5,
-        -5
+        1,
+        -7
       ],
       "rotation": [
         1.57079633,
@@ -1641,6 +1803,34 @@
       ],
       "scale": [
         1,1,1
+      ]
+    },
+    {
+      "type": "model",
+      "mesh": 5,
+      "name": "final-coin",
+      "id": "coin",
+      "texture": 9,
+      "aabb": {
+        "min": [
+          -1,-1,-1
+        ],
+        "max": [
+          1,1,1
+        ]
+      },
+      "translation": [
+        -1,
+        1,
+        -82
+      ],
+      "rotation": [
+        1.57079633,
+        0,
+        0
+      ],
+      "scale": [
+        1.2,1.2,1.2
       ]
     } 
   ],

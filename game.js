@@ -114,12 +114,14 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     gui.add(app, 'enableCamera').onChange(function(){
         var timer = setInterval(function() {
-            document.getElementById("time").innerHTML++;
-            if(app.inWater && !over){
+            let time = document.getElementById("time").innerHTML 
+            console.log(time, app.inWater)
+            if((app.inWater || time == "15") && !over){
                 alert("GAME OVER :(");
                 over = true
                 window.location.replace("menu.html");
             }
+            document.getElementById("time").innerHTML++;
         }, 1000);
     });
     

@@ -28,7 +28,6 @@ export class Camera extends Node {
 
     update(dt, binded) {
         const c = this;
-        console.log(this.translation[1])
         c.maxSpeed = Math.max(c.maxSpeed, 8)
         if(c.translation[1] == 1){
             c.onGround = true;
